@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fertilizer Enrichment Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .nav-gradient {
+            background: linear-gradient(89deg, #000000 0%, #27ae42 100%);
+        }
+
+        .input-focus:focus {
+            border-color: #2ecc71;
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .p-4 {
+            padding: 1.1rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navbar -->
+    <nav class="nav-gradient text-white p-4 shadow-md flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <img 
+                src="https://cod-crushers.github.io/GobarShakti/assests/image.png" 
+                alt="CodeCrushers Logo" 
+                class="h-12 w-12 object-contain rounded-full"
+            >
+            <span class="text-xl font-bold tracking-wider">Fertilizer Enrichment Calculator</span>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container mx-auto px-4 py-8 flex justify-center">
+        <div class="bg-white w-full max-w-md rounded-xl card-shadow p-6 border border-gray-100">
+            <h1 class="text-2xl font-bold text-center mb-6 text-green-700">Fertilizer Calculator</h1>
+            
+            <div class="space-y-4">
+                <!-- Soil Nutrient Inputs -->
+                <div class="border-b pb-4">
+                    <h2 class="text-lg font-semibold mb-3 text-gray-700">Soil Nutrient Values (mg/kg)</h2>
+                    <!-- Nitrogen Input -->
+                    <div class="mb-2">
+                        <label for="soilNitrogen" class="block text-sm font-medium text-gray-700 mb-1">Nitrogen (N) mg/kg</label>
+                        <input 
+                            type="number" 
+                            id="soilNitrogen" 
+                            min="0" 
+                            step="1" 
+                            class="input-focus w-full px-3 py-2 border border-gray-300 rounded-md"
+                            placeholder="Soil Nitrogen (mg/kg)"
+                        >
+                    </div>
+
+                    <!-- Phosphorus Input -->
+                    <div class="mb-2">
+                        <label for="soilPhosphorus" class="block text-sm font-medium text-gray-700 mb-1">Phosphorus (P) mg/kg</label>
+                        <input 
+                            type="number" 
+                            id="soilPhosphorus" 
+                            min="0" 
+                            step="1" 
+                            class="input-focus w-full px-3 py-2 border border-gray-300 rounded-md"
+                            placeholder="Soil Phosphorus (mg/kg)"
+                        >
+                    </div>
+
+                    <!-- Potassium Input -->
+                    <div>
+                        <label for="soilPotassium" class="block text-sm font-medium text-gray-700 mb-1">Potassium (K) mg/kg</label>
+                        <input 
+                            type="number" 
+                            id="soilPotassium" 
+                            min="0" 
+                            step="1" 
+                            class="input-focus w-full px-3 py-2 border border-gray-300 rounded-md"
+                            placeholder="Soil Potassium (mg/kg)"
+                        >
+                    </div>
+                </div>
+
+                <!-- Fertilizer NPK Inputs -->
+                <div class="border-b pb-4">
+                    <h2 class="text-lg font-semibold mb-3 text-gray-700">Fertilizer Nutrient Values (%)</h2>
+                    <!-- Nitrogen Input -->
+                    <div class="mb-2">
+                        <label for="fertilizerNitrogen" class="block text-sm font-medium text-gray-700 mb-1">Nitrogen (N) %</label>
+                        <input 
+                            type="number" 
+                            id="fertilizerNitrogen" 
+                            min="0" 
+                            step="0.1" 
+                            class="input-focus w-full px-3 py-2 border border-gray-300 rounded-md"
+                            placeholder="Fertilizer Nitrogen Percentage"
+                        >
+                    </div>
+
+                    <!-- Phosphorus Input -->
+                    <div class="mb-2">
+                        <label for="fertilizerPhosphorus" class="block text-sm font-medium text-gray-700 mb-1">Phosphorus (P) %</label>
+                        <input 
+                            type="number" 
+                            id="fertilizerPhosphorus" 
+                            min="0" 
+                            step="0.1" 
+                            class="input-focus w-full px-3 py-2 border border-gray-300 rounded-md"
+                            placeholder="Fertilizer Phosphorus Percentage"
+                        >
+                    </div>
+
+                    <!-- Potassium Input -->
+                    <div>
+                        <label for="fertilizerPotassium" class="block text-sm font-medium text-gray-700 mb-1">Potassium (K) %</label>
+                        <input 
+                            type="number" 
+                            id="fertilizerPotassium" 
+                            min="0" 
+                            step="0.1" 
+                            class="input-focus w-full px-3 py-2 border border-gray-300 rounded-md"
+                            placeholder="Fertilizer Potassium Percentage"
+                        >
+                    </div>
+                </div>
+
+                <!-- Crop Selection -->
+                <div class="mb-4">
+                    <label for="cropType" class="block text-sm font-medium text-gray-700 mb-1">Select Crop</label>
+                    <select 
+                        id="cropType" 
+                        class="input-focus w-full px-3 py-2 border border-gray-300 rounded-md"
+                    >
+                        <option value="">Select Crop Type</option>
+                        <option value="wheat">Wheat</option>
+                        <option value="rice">Rice</option>
+                        <option value="vegetables">Vegetables</option>
+                        <option value="fruits">Fruits</option>
+                    </select>
+                </div>
+
+                <!-- Area and Weight Inputs -->
+                <div class="mb-4">
+                    <label for="landArea" class="block text-sm font-medium text-gray-700 mb-1">Land Area (Hectares)</label>
+                    <input 
+                        type="number" 
+                        id="landArea" 
+                        min="0" 
+                        step="0.1" 
+                        class="input-focus w-full px-3 py-2 border border-gray-300 rounded-md"
+                        placeholder="Enter Land Area"
+                    >
+                </div>
+
+                <!-- Calculate Button -->
+                <button 
+                    onclick="calculateFertilizerRequirement()" 
+                    class="w-full bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+                >
+                    Calculate Fertilizer Requirement
+                </button>
+
+                <!-- Results Display -->
+                <div id="results" class="mt-4 p-4 bg-gray-50 rounded-md border border-gray-200 hidden">
+                    <h2 class="text-xl font-semibold mb-3 text-green-700">Fertilizer Analysis</h2>
+                    <div id="fertilizerDetails" class="space-y-2"></div>
+                    <div id="suggestions" class="mt-3 bg-white p-3 rounded-md">
+                        <h3 class="font-bold text-green-600 mb-2">Recommendations</h3>
+                        <div id="suggestionContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateFertilizerRequirement() {
+            // Soil Nutrient Values (mg/kg)
+            const soilNitrogen = parseFloat(document.getElementById('soilNitrogen').value);
+            const soilPhosphorus = parseFloat(document.getElementById('soilPhosphorus').value);
+            const soilPotassium = parseFloat(document.getElementById('soilPotassium').value);
+
+            // Fertilizer NPK Values (%)
+            const fertilizerNitrogen = parseFloat(document.getElementById('fertilizerNitrogen').value);
+            const fertilizerPhosphorus = parseFloat(document.getElementById('fertilizerPhosphorus').value);
+            const fertilizerPotassium = parseFloat(document.getElementById('fertilizerPotassium').value);
+
+            // Crop and Land Area
+            const cropType = document.getElementById('cropType').value;
+            const landArea = parseFloat(document.getElementById('landArea').value);
+
+            // Validation
+            if (isNaN(soilNitrogen) || isNaN(soilPhosphorus) || isNaN(soilPotassium) ||
+                isNaN(fertilizerNitrogen) || isNaN(fertilizerPhosphorus) || isNaN(fertilizerPotassium) ||
+                !cropType || isNaN(landArea)) {
+                alert('Please fill in all fields with valid values');
+                return;
+            }
+
+            // Nutrient Requirement Calculation (simplified)
+            // Assuming optimal nutrient levels and conversion factors
+            const optimalNitrogenLevel = 80; // mg/kg
+            const optimalPhosphorusLevel = 40; // mg/kg
+            const optimalPotassiumLevel = 120; // mg/kg
+
+            // Calculate nutrient deficiency
+            const nitrogenDeficiency = Math.max(0, optimalNitrogenLevel - soilNitrogen);
+            const phosphorusDeficiency = Math.max(0, optimalPhosphorusLevel - soilPhosphorus);
+            const potassiumDeficiency = Math.max(0, optimalPotassiumLevel - soilPotassium);
+
+            // Calculate fertilizer requirement (kg per hectare)
+            // Conversion assumes 1 hectare = 10,000 m², and soil depth of 15 cm
+            const hectareTopsoilWeight = 2000000; // kg per hectare
+            const nitrogenRequirement = (nitrogenDeficiency * hectareTopsoilWeight / 1000000) / (fertilizerNitrogen / 100);
+            const phosphorusRequirement = (phosphorusDeficiency * hectareTopsoilWeight / 1000000) / (fertilizerPhosphorus / 100);
+            const potassiumRequirement = (potassiumDeficiency * hectareTopsoilWeight / 1000000) / (fertilizerPotassium / 100);
+
+            // Display Results
+            const resultsDiv = document.getElementById('results');
+            const detailsDiv = document.getElementById('fertilizerDetails');
+            const suggestionsDiv = document.getElementById('suggestionContent');
+
+            detailsDiv.innerHTML = `
+                <p class="flex justify-between">
+                    <span>Nitrogen Requirement:</span> 
+                    <span class="font-semibold">${nitrogenRequirement.toFixed(2)} kg/ha</span>
+                </p>
+                <p class="flex justify-between">
+                    <span>Phosphorus Requirement:</span> 
+                    <span class="font-semibold">${phosphorusRequirement.toFixed(2)} kg/ha</span>
+                </p>
+                <p class="flex justify-between">
+                    <span>Potassium Requirement:</span> 
+                    <span class="font-semibold">${potassiumRequirement.toFixed(2)} kg/ha</span>
+                </p>
+                <p class="flex justify-between">
+                    <span>Current Soil Nitrogen:</span> 
+                    <span class="font-semibold">${soilNitrogen} mg/kg</span>
+                </p>
+                <p class="flex justify-between">
+                    <span>Current Soil Phosphorus:</span> 
+                    <span class="font-semibold">${soilPhosphorus} mg/kg</span>
+                </p>
+                <p class="flex justify-between">
+                    <span>Current Soil Potassium:</span> 
+                    <span class="font-semibold">${soilPotassium} mg/kg</span>
+                </p>
+            `;
+
+            // Crop-specific Suggestions
+            let suggestions = '';
+            switch(cropType) {
+                case 'wheat':
+                    suggestions = `
+                        <p>• Ideal Nitrogen: 80-120 mg/kg</p>
+                        <p>• Ideal Phosphorus: 30-50 mg/kg</p>
+                        <p>• Ideal Potassium: 100-150 mg/kg</p>
+                        <p>• Split nitrogen application for better absorption</p>
+                    `;
+                    break;
+                case 'rice':
+                    suggestions = `
+                        <p>• Ideal Nitrogen: 70-100 mg/kg</p>
+                        <p>• Ideal Phosphorus: 30-50 mg/kg</p>
+                        <p>• Ideal Potassium: 80-120 mg/kg</p>
+                        <p>• Apply fertilizers before transplanting</p>
+                    `;
+                    break;
+                case 'vegetables':
+                    suggestions = `
+                        <p>• Nitrogen: Varies by vegetable type (40-150 mg/kg)</p>
+                        <p>• Phosphorus: 30-60 mg/kg</p>
+                        <p>• Potassium: 100-150 mg/kg</p>
+                        <p>• Use organic compost for balanced nutrition</p>
+                    `;
+                    break;
+                case 'fruits':
+                    suggestions = `
+                        <p>• Nitrogen: 60-100 mg/kg</p>
+                        <p>• Phosphorus: 30-50 mg/kg</p>
+                        <p>• Potassium: 120-180 mg/kg</p>
+                        <p>• Focus on micronutrient balance</p>
+                    `;
+                    break;
+                default:
+                    suggestions = '<p>Select a specific crop for detailed recommendations.</p>';
+            }
+
+            suggestionsDiv.innerHTML = suggestions;
+                        // Show results section
+                        resultsDiv.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
