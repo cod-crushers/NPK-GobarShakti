@@ -12,6 +12,9 @@
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .nav-gradient {
@@ -26,46 +29,84 @@
         .card-shadow {
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
+        
         .p-4 {
             padding: 1.1rem;
         }
+        
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .nav-title {
+                font-size: 1rem;
+            }
+            
+            .logo-img {
+                height: 2.5rem;
+                width: 2.5rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .results-container {
+                padding: 0.75rem;
+            }
+            
+            .form-section {
+                margin-bottom: 1.25rem;
+            }
+        }
+        
+        /* Make footer stick to bottom */
+        main {
+            flex: 1 0 auto;
+        }
+        
+        footer {
+            flex-shrink: 0;
+        }
     </style>
 </head>
-<body class="min-h-screen">
+<body>
     <!-- Navbar -->
- <nav class="nav-gradient text-white p-4 shadow-md flex items-center justify-between">
-    <!-- Logo and Title -->
-    <div class="flex items-center space-x-3">
-        <img 
-            src="https://cod-crushers.github.io/GobarShakti/assests/image.png" 
-            alt="CodeCrushers Logo" 
-            class="h-12 w-12 object-contain rounded-full"
-        >
-        <span class="text-xl font-bold tracking-wider">Fertilizer Enrichment Calculator</span>
-    </div>
-    
-    <!-- License Link -->
-    <div>
-        <a 
-            href="https://github.com/cod-crushers/NPK-GobarShakti/blob/main/LICENSE" 
-            class="text-sm text-white underline hover:text-green-300 transition"
-            target="_blank"
-        >
-            License
-        </a>
-    </div>
-</nav>
-
+    <nav class="nav-gradient text-white p-3 sm:p-4 shadow-md flex items-center justify-between">
+        <!-- Logo and Title -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+            <img 
+                src="https://cod-crushers.github.io/GobarShakti/assests/image.png" 
+                alt="CodeCrushers Logo" 
+                class="h-8 w-8 sm:h-12 sm:w-12 object-contain rounded-full logo-img"
+            >
+            <span class="text-sm sm:text-xl font-bold tracking-wider nav-title">Fertilizer Enrichment Calculator</span>
+        </div>
+        
+        <!-- License Link -->
+        <div>
+            <a 
+                href="https://github.com/cod-crushers/NPK-GobarShakti/blob/main/LICENSE" 
+                class="text-xs sm:text-sm text-white underline hover:text-green-300 transition"
+                target="_blank"
+            >
+                License
+            </a>
+        </div>
+    </nav>
 
     <!-- Main Container -->
-    <div class="container mx-auto px-4 py-8 flex justify-center">
-        <div class="bg-white w-full max-w-md rounded-xl card-shadow p-6 border border-gray-100">
-            <h1 class="text-2xl font-bold text-center mb-6 text-green-700">Fertilizer Calculator</h1>
+    <main class="container mx-auto px-2 sm:px-4 py-6 sm:py-8 flex justify-center">
+        <div class="bg-white w-full max-w-md rounded-xl card-shadow p-4 sm:p-6 border border-gray-100">
+            <h1 class="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6 text-green-700">Fertilizer Calculator</h1>
             
-            <div class="space-y-4">
+            <div class="space-y-3 sm:space-y-4">
                 <!-- Soil Nutrient Inputs -->
-                <div class="border-b pb-4">
-                    <h2 class="text-lg font-semibold mb-3 text-gray-700">Soil Nutrient Values (mg/kg)</h2>
+                <div class="border-b pb-4 form-section">
+                    <h2 class="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-gray-700">Soil Nutrient Values (mg/kg)</h2>
                     <!-- Nitrogen Input -->
                     <div class="mb-2">
                         <label for="soilNitrogen" class="block text-sm font-medium text-gray-700 mb-1">Nitrogen (N) mg/kg</label>
@@ -106,51 +147,54 @@
                     </div>
                 </div>
 
-                <!-- Fertilizer NPK Inputs -->
-                <div class="border-b pb-4">
-                    <h2 class="text-lg font-semibold mb-3 text-gray-700">Fertilizer Nutrient Values (%)</h2>
-                    <!-- Nitrogen Input -->
+                <!-- Fertilizer NPK Values -->
+                <div class="border-b pb-4 form-section">
+                    <h2 class="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-gray-700">Fertilizer NPK Values (mg/kg)</h2>
+                    <!-- Fertilizer Nitrogen Input -->
                     <div class="mb-2">
-                        <label for="fertilizerNitrogen" class="block text-sm font-medium text-gray-700 mb-1">Nitrogen (N) %</label>
+                        <label for="fertilizerNitrogen" class="block text-sm font-medium text-gray-700 mb-1">Nitrogen (N) mg/kg</label>
                         <input 
                             type="number" 
                             id="fertilizerNitrogen" 
                             min="0" 
-                            step="0.1" 
+                            step="1" 
                             class="input-focus w-full px-3 py-2 border border-gray-300 rounded-md"
-                            placeholder="Fertilizer Nitrogen Percentage"
+                            placeholder="Fertilizer Nitrogen (mg/kg)"
+                            value="150000"
                         >
                     </div>
 
-                    <!-- Phosphorus Input -->
+                    <!-- Fertilizer Phosphorus Input -->
                     <div class="mb-2">
-                        <label for="fertilizerPhosphorus" class="block text-sm font-medium text-gray-700 mb-1">Phosphorus (P) %</label>
+                        <label for="fertilizerPhosphorus" class="block text-sm font-medium text-gray-700 mb-1">Phosphorus (P) mg/kg</label>
                         <input 
                             type="number" 
                             id="fertilizerPhosphorus" 
                             min="0" 
-                            step="0.1" 
+                            step="1" 
                             class="input-focus w-full px-3 py-2 border border-gray-300 rounded-md"
-                            placeholder="Fertilizer Phosphorus Percentage"
+                            placeholder="Fertilizer Phosphorus (mg/kg)"
+                            value="150000"
                         >
                     </div>
 
-                    <!-- Potassium Input -->
+                    <!-- Fertilizer Potassium Input -->
                     <div>
-                        <label for="fertilizerPotassium" class="block text-sm font-medium text-gray-700 mb-1">Potassium (K) %</label>
+                        <label for="fertilizerPotassium" class="block text-sm font-medium text-gray-700 mb-1">Potassium (K) mg/kg</label>
                         <input 
                             type="number" 
                             id="fertilizerPotassium" 
                             min="0" 
-                            step="0.1" 
+                            step="1" 
                             class="input-focus w-full px-3 py-2 border border-gray-300 rounded-md"
-                            placeholder="Fertilizer Potassium Percentage"
+                            placeholder="Fertilizer Potassium (mg/kg)"
+                            value="150000"
                         >
                     </div>
                 </div>
 
                 <!-- Crop Selection -->
-                <div class="mb-4">
+                <div class="mb-3 sm:mb-4 form-section">
                     <label for="cropType" class="block text-sm font-medium text-gray-700 mb-1">Select Crop</label>
                     <select 
                         id="cropType" 
@@ -165,7 +209,7 @@
                 </div>
 
                 <!-- Area and Weight Inputs -->
-                <div class="mb-4">
+                <div class="mb-3 sm:mb-4 form-section">
                     <label for="landArea" class="block text-sm font-medium text-gray-700 mb-1">Land Area (Hectares)</label>
                     <input 
                         type="number" 
@@ -180,155 +224,361 @@
                 <!-- Calculate Button -->
                 <button 
                     onclick="calculateFertilizerRequirement()" 
-                    class="w-full bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+                    class="w-full bg-green-600 text-white py-2 sm:py-3 rounded-md hover:bg-green-700 transition duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
                 >
                     Calculate Fertilizer Requirement
                 </button>
 
                 <!-- Results Display -->
-                <div id="results" class="mt-4 p-4 bg-gray-50 rounded-md border border-gray-200 hidden">
-                    <h2 class="text-xl font-semibold mb-3 text-green-700">Fertilizer Analysis</h2>
+                <div id="results" class="mt-3 sm:mt-4 p-3 sm:p-4 bg-gray-50 rounded-md border border-gray-200 hidden results-container">
+                    <h2 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-green-700">Fertilizer Analysis</h2>
                     <div id="fertilizerDetails" class="space-y-2"></div>
-                    <div id="suggestions" class="mt-3 bg-white p-3 rounded-md">
+                    <div id="suggestions" class="mt-3 bg-white p-2 sm:p-3 rounded-md">
                         <h3 class="font-bold text-green-600 mb-2">Recommendations</h3>
-                        <div id="suggestionContent"></div>
+                        <div id="suggestionContent" class="text-sm"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-<footer class="bg-gray-800 text-white py-4">
-    <div class="container mx-auto text-center">
-        <p class="text-sm">
-            &copy; 2024 <a href="https://github.com/cod-crushers/NPK-GobarShakti/blob/main/LICENSE" class="text-green-400 hover:text-green-300 underline">
-                GobarShakti
-            </a>. All Rights Reserved.
+    </main>
+    
+    <footer class="bg-gray-800 text-white py-3 sm:py-4">
+        <div class="container mx-auto text-center">
+            <p class="text-xs sm:text-sm">
+                &copy; 2024 <a href="https://github.com/cod-crushers/NPK-GobarShakti/blob/main/LICENSE" class="text-green-400 hover:text-green-300 underline">
+                    GobarShakti
+                </a>. All Rights Reserved.
+            </p>
+            <p class="text-xs sm:text-sm mt-1">
+                Designed with <span class="text-red-500">&hearts;</span> by CodCrushers.
+            </p>
+        </div>
+    </footer>
+    
+<script>
+    function calculateFertilizerRequirement() {
+    // Get input values
+    const soilNitrogen = parseFloat(document.getElementById('soilNitrogen').value);
+    const soilPhosphorus = parseFloat(document.getElementById('soilPhosphorus').value);
+    const soilPotassium = parseFloat(document.getElementById('soilPotassium').value);
+
+    // Fertilizer NPK Values (mg/kg)
+    const fertilizerNitrogen = parseFloat(document.getElementById('fertilizerNitrogen').value);
+    const fertilizerPhosphorus = parseFloat(document.getElementById('fertilizerPhosphorus').value);
+    const fertilizerPotassium = parseFloat(document.getElementById('fertilizerPotassium').value);
+
+    // Crop and Land Area
+    const cropType = document.getElementById('cropType').value;
+    const landArea = parseFloat(document.getElementById('landArea').value);
+
+    // Validation
+    if (isNaN(soilNitrogen) || isNaN(soilPhosphorus) || isNaN(soilPotassium) ||
+        isNaN(fertilizerNitrogen) || isNaN(fertilizerPhosphorus) || isNaN(fertilizerPotassium) ||
+        !cropType || isNaN(landArea)) {
+        alert('Please fill in all fields with valid values');
+        return;
+    }
+
+    // Get crop-specific optimal levels
+    const optimalLevels = getOptimalLevels(cropType);
+    
+    // Calculate nutrient deficiency
+    const nitrogenDeficiency = Math.max(0, optimalLevels.nitrogen - soilNitrogen);
+    const phosphorusDeficiency = Math.max(0, optimalLevels.phosphorus - soilPhosphorus);
+    const potassiumDeficiency = Math.max(0, optimalLevels.potassium - soilPotassium);
+
+    // Calculate nutrient status
+    const nitrogenStatus = getNutrientStatus(soilNitrogen, optimalLevels.nitrogen);
+    const phosphorusStatus = getNutrientStatus(soilPhosphorus, optimalLevels.phosphorus);
+    const potassiumStatus = getNutrientStatus(soilPotassium, optimalLevels.potassium);
+
+    // Calculate fertilizer requirement (kg per hectare)
+    // Converting mg/kg of deficiency to kg/hectare using 2000000 kg topsoil per hectare
+    const hectareTopsoilWeight = 2000000; // kg per hectare
+    
+    // Calculate how much fertilizer is needed in kg/ha
+    // (nutrient deficiency × soil weight) ÷ fertilizer concentration
+    const nitrogenRequirement = (nitrogenDeficiency * hectareTopsoilWeight) / fertilizerNitrogen;
+    const phosphorusRequirement = (phosphorusDeficiency * hectareTopsoilWeight) / fertilizerPhosphorus;
+    const potassiumRequirement = (potassiumDeficiency * hectareTopsoilWeight) / fertilizerPotassium;
+
+    // Calculate total fertilizer needed
+    const totalFertilizerNeeded = nitrogenRequirement + phosphorusRequirement + potassiumRequirement;
+    
+    // Calculate yield impact
+    const yieldImpact = calculateYieldImpact(nitrogenStatus, phosphorusStatus, potassiumStatus);
+
+    // Display Results
+    const resultsDiv = document.getElementById('results');
+    const detailsDiv = document.getElementById('fertilizerDetails');
+    const suggestionsDiv = document.getElementById('suggestionContent');
+
+    detailsDiv.innerHTML = `
+        <p class="flex justify-between text-sm sm:text-base">
+            <span>Nitrogen Requirement:</span> 
+            <span class="font-semibold">${nitrogenRequirement.toFixed(2)} kg/ha</span>
         </p>
-        <p class="text-sm mt-1">
-            Designed with <span class="text-red-500">&hearts;</span> by CodCrushers.
+        <p class="flex justify-between text-sm sm:text-base">
+            <span>Phosphorus Requirement:</span> 
+            <span class="font-semibold">${phosphorusRequirement.toFixed(2)} kg/ha</span>
         </p>
-    </div>
-</footer>
-    <script>
-        function calculateFertilizerRequirement() {
-            // Soil Nutrient Values (mg/kg)
-            const soilNitrogen = parseFloat(document.getElementById('soilNitrogen').value);
-            const soilPhosphorus = parseFloat(document.getElementById('soilPhosphorus').value);
-            const soilPotassium = parseFloat(document.getElementById('soilPotassium').value);
+        <p class="flex justify-between text-sm sm:text-base">
+            <span>Potassium Requirement:</span> 
+            <span class="font-semibold">${potassiumRequirement.toFixed(2)} kg/ha</span>
+        </p>
+        <p class="flex justify-between text-sm sm:text-base">
+            <span>Total Fertilizer Needed:</span> 
+            <span class="font-semibold">${totalFertilizerNeeded.toFixed(2)} kg/ha</span>
+        </p>
+        <p class="flex justify-between text-sm sm:text-base">
+            <span>Total Fertilizer for ${landArea} hectares:</span> 
+            <span class="font-semibold">${(totalFertilizerNeeded * landArea).toFixed(2)} kg</span>
+        </p>
+        <p class="flex justify-between text-sm sm:text-base">
+            <span>Estimated Yield Impact:</span> 
+            <span class="font-semibold ${yieldImpact.color}">${yieldImpact.text}</span>
+        </p>
+    `;
 
-            // Fertilizer NPK Values (%)
-            const fertilizerNitrogen = parseFloat(document.getElementById('fertilizerNitrogen').value);
-            const fertilizerPhosphorus = parseFloat(document.getElementById('fertilizerPhosphorus').value);
-            const fertilizerPotassium = parseFloat(document.getElementById('fertilizerPotassium').value);
+    // Generate detailed analysis and recommendations
+    const recommendations = generateRecommendations(
+        cropType, 
+        soilNitrogen, soilPhosphorus, soilPotassium,
+        nitrogenStatus, phosphorusStatus, potassiumStatus,
+        nitrogenRequirement, phosphorusRequirement, potassiumRequirement
+    );
 
-            // Crop and Land Area
-            const cropType = document.getElementById('cropType').value;
-            const landArea = parseFloat(document.getElementById('landArea').value);
+    suggestionsDiv.innerHTML = recommendations;
 
-            // Validation
-            if (isNaN(soilNitrogen) || isNaN(soilPhosphorus) || isNaN(soilPotassium) ||
-                isNaN(fertilizerNitrogen) || isNaN(fertilizerPhosphorus) || isNaN(fertilizerPotassium) ||
-                !cropType || isNaN(landArea)) {
-                alert('Please fill in all fields with valid values');
-                return;
-            }
+    // Show results section
+    resultsDiv.classList.remove('hidden');
+}
 
-            // Nutrient Requirement Calculation (simplified)
-            // Assuming optimal nutrient levels and conversion factors
-            const optimalNitrogenLevel = 80; // mg/kg
-            const optimalPhosphorusLevel = 40; // mg/kg
-            const optimalPotassiumLevel = 120; // mg/kg
+function getOptimalLevels(cropType) {
+    switch(cropType) {
+        case 'wheat':
+            return { nitrogen: 100, phosphorus: 40, potassium: 130 };
+        case 'rice':
+            return { nitrogen: 85, phosphorus: 40, potassium: 100 };
+        case 'vegetables':
+            return { nitrogen: 120, phosphorus: 50, potassium: 130 };
+        case 'fruits':
+            return { nitrogen: 80, phosphorus: 40, potassium: 150 };
+        default:
+            return { nitrogen: 90, phosphorus: 45, potassium: 120 };
+    }
+}
 
-            // Calculate nutrient deficiency
-            const nitrogenDeficiency = Math.max(0, optimalNitrogenLevel - soilNitrogen);
-            const phosphorusDeficiency = Math.max(0, optimalPhosphorusLevel - soilPhosphorus);
-            const potassiumDeficiency = Math.max(0, optimalPotassiumLevel - soilPotassium);
+function getNutrientStatus(current, optimal) {
+    const ratio = current / optimal;
+    if (ratio < 0.5) return { level: 'severely deficient', score: 0 };
+    if (ratio < 0.75) return { level: 'deficient', score: 1 };
+    if (ratio < 0.9) return { level: 'slightly deficient', score: 2 };
+    if (ratio < 1.1) return { level: 'optimal', score: 3 };
+    if (ratio < 1.3) return { level: 'slightly excessive', score: 2 };
+    if (ratio < 1.5) return { level: 'excessive', score: 1 };
+    return { level: 'severely excessive', score: 0 };
+}
 
-            // Calculate fertilizer requirement (kg per hectare)
-            // Conversion assumes 1 hectare = 10,000 m², and soil depth of 15 cm
-            const hectareTopsoilWeight = 2000000; // kg per hectare
-            const nitrogenRequirement = (nitrogenDeficiency * hectareTopsoilWeight / 1000000) / (fertilizerNitrogen / 100);
-            const phosphorusRequirement = (phosphorusDeficiency * hectareTopsoilWeight / 1000000) / (fertilizerPhosphorus / 100);
-            const potassiumRequirement = (potassiumDeficiency * hectareTopsoilWeight / 1000000) / (fertilizerPotassium / 100);
+function calculateYieldImpact(nitrogenStatus, phosphorusStatus, potassiumStatus) {
+    // Calculate overall nutrient status score
+    const totalScore = nitrogenStatus.score + phosphorusStatus.score + potassiumStatus.score;
+    const maxScore = 9; // 3 nutrients × max score of 3
+    const percentScore = (totalScore / maxScore) * 100;
+    
+    if (percentScore >= 90) {
+        return { text: 'Excellent (95-100% of potential yield)', color: 'text-green-700' };
+    } else if (percentScore >= 80) {
+        return { text: 'Very Good (85-95% of potential yield)', color: 'text-green-600' };
+    } else if (percentScore >= 70) {
+        return { text: 'Good (75-85% of potential yield)', color: 'text-green-500' };
+    } else if (percentScore >= 60) {
+        return { text: 'Fair (65-75% of potential yield)', color: 'text-yellow-500' };
+    } else if (percentScore >= 50) {
+        return { text: 'Poor (50-65% of potential yield)', color: 'text-yellow-600' };
+    } else {
+        return { text: 'Very Poor (<50% of potential yield)', color: 'text-red-500' };
+    }
+}
 
-            // Display Results
-            const resultsDiv = document.getElementById('results');
-            const detailsDiv = document.getElementById('fertilizerDetails');
-            const suggestionsDiv = document.getElementById('suggestionContent');
+function generateRecommendations(cropType, soilN, soilP, soilK, nStatus, pStatus, kStatus, nReq, pReq, kReq) {
+    let report = '<div class="space-y-2 sm:space-y-3">';
+    
+    // Soil Analysis Summary
+    report += `<div class="mb-2 sm:mb-3">
+        <h4 class="font-semibold text-green-700 text-sm sm:text-base">Soil Analysis Summary</h4>
+        <p class="text-xs sm:text-sm">Your soil has ${nStatus.level} nitrogen, ${pStatus.level} phosphorus, and ${kStatus.level} potassium levels.</p>
+    </div>`;
+    
+    // Production Optimization Recommendations
+    report += `<div class="mb-2 sm:mb-3">
+        <h4 class="font-semibold text-green-700 text-sm sm:text-base">Production Optimization Plan</h4>
+        <ul class="list-disc pl-4 sm:pl-5 space-y-1 text-xs sm:text-sm">`;
+    
+    // Add crop-specific recommendations
+    switch(cropType) {
+        case 'wheat':
+            report += getWheatRecommendations(nStatus, pStatus, kStatus, nReq, pReq, kReq);
+            break;
+        case 'rice':
+            report += getRiceRecommendations(nStatus, pStatus, kStatus, nReq, pReq, kReq);
+            break;
+        case 'vegetables':
+            report += getVegetableRecommendations(nStatus, pStatus, kStatus, nReq, pReq, kReq);
+            break;
+        case 'fruits':
+            report += getFruitRecommendations(nStatus, pStatus, kStatus, nReq, pReq, kReq);
+            break;
+        default:
+            report += getGeneralRecommendations(nStatus, pStatus, kStatus, nReq, pReq, kReq);
+    }
+    
+    report += `</ul></div>`;
+    
+    // Application Strategy
+    report += `<div class="mb-2 sm:mb-3">
+        <h4 class="font-semibold text-green-700 text-sm sm:text-base">Application Strategy</h4>
+        <ul class="list-disc pl-4 sm:pl-5 space-y-1 text-xs sm:text-sm">`;
+    
+    if (nReq > 0) {
+        report += `<li>Apply nitrogen fertilizer in ${cropType === 'rice' || cropType === 'wheat' ? 'split applications' : 'measured doses'} to reduce leaching and maximize uptake.</li>`;
+    }
+    
+    if (pReq > 0) {
+        report += `<li>Apply phosphorus fertilizer before planting to ensure availability during early growth stages.</li>`;
+    }
+    
+    if (kReq > 0) {
+        report += `<li>Apply potassium fertilizer ${cropType === 'fruits' ? 'before flowering and fruit set' : 'at regular intervals'} to enhance quality and yield.</li>`;
+    }
+    
+    report += `</ul></div>`;
+    
+    // Complementary Practices
+    report += `<div class="mb-2 sm:mb-3">
+        <h4 class="font-semibold text-green-700 text-sm sm:text-base">Complementary Practices</h4>
+        <ul class="list-disc pl-4 sm:pl-5 space-y-1 text-xs sm:text-sm">
+            <li>Incorporate organic matter to improve soil structure and nutrient retention.</li>
+            <li>Implement proper water management for optimal nutrient uptake.</li>
+            <li>Consider soil pH adjustment if necessary for better nutrient availability.</li>
+            <li>Practice crop rotation to maintain soil health and reduce pest pressure.</li>
+        </ul>
+    </div>`;
+    
+    report += `</div>`;
+    
+    return report;
+}
 
-            detailsDiv.innerHTML = `
-                <p class="flex justify-between">
-                    <span>Nitrogen Requirement:</span> 
-                    <span class="font-semibold">${nitrogenRequirement.toFixed(2)} kg/ha</span>
-                </p>
-                <p class="flex justify-between">
-                    <span>Phosphorus Requirement:</span> 
-                    <span class="font-semibold">${phosphorusRequirement.toFixed(2)} kg/ha</span>
-                </p>
-                <p class="flex justify-between">
-                    <span>Potassium Requirement:</span> 
-                    <span class="font-semibold">${potassiumRequirement.toFixed(2)} kg/ha</span>
-                </p>
-                <p class="flex justify-between">
-                    <span>Current Soil Nitrogen:</span> 
-                    <span class="font-semibold">${soilNitrogen} mg/kg</span>
-                </p>
-                <p class="flex justify-between">
-                    <span>Current Soil Phosphorus:</span> 
-                    <span class="font-semibold">${soilPhosphorus} mg/kg</span>
-                </p>
-                <p class="flex justify-between">
-                    <span>Current Soil Potassium:</span> 
-                    <span class="font-semibold">${soilPotassium} mg/kg</span>
-                </p>
-            `;
+function getWheatRecommendations(nStatus, pStatus, kStatus, nReq, pReq, kReq) {
+    let recommendations = '';
+    
+    if (nStatus.score < 2) {
+        recommendations += `<li>Apply nitrogen in split doses: 40% at sowing, 40% at tillering, and 20% at heading stage to boost protein content and yield.</li>`;
+    }
+    
+    if (pStatus.score < 2) {
+        recommendations += `<li>Apply phosphorus before sowing to promote root development and tillering, which can increase yield by 15-20%.</li>`;
+    }
+    
+    if (kStatus.score < 2) {
+        recommendations += `<li>Adequate potassium will improve drought tolerance and reduce lodging, increasing production stability.</li>`;
+    }
+    
+    recommendations += `<li>Timely weed control within the first 30-45 days can increase yield by 20-30%.</li>`;
+    recommendations += `<li>Apply micronutrients like zinc and boron if deficient to improve grain filling and quality.</li>`;
+    recommendations += `<li>Maintain optimal plant population of 250-300 plants/m² for maximum yield potential.</li>`;
+    
+    return recommendations;
+}
 
-            // Crop-specific Suggestions
-            let suggestions = '';
-            switch(cropType) {
-                case 'wheat':
-                    suggestions = `
-                        <p>• Ideal Nitrogen: 80-120 mg/kg</p>
-                        <p>• Ideal Phosphorus: 30-50 mg/kg</p>
-                        <p>• Ideal Potassium: 100-150 mg/kg</p>
-                        <p>• Split nitrogen application for better absorption</p>
-                    `;
-                    break;
-                case 'rice':
-                    suggestions = `
-                        <p>• Ideal Nitrogen: 70-100 mg/kg</p>
-                        <p>• Ideal Phosphorus: 30-50 mg/kg</p>
-                        <p>• Ideal Potassium: 80-120 mg/kg</p>
-                        <p>• Apply fertilizers before transplanting</p>
-                    `;
-                    break;
-                case 'vegetables':
-                    suggestions = `
-                        <p>• Nitrogen: Varies by vegetable type (40-150 mg/kg)</p>
-                        <p>• Phosphorus: 30-60 mg/kg</p>
-                        <p>• Potassium: 100-150 mg/kg</p>
-                        <p>• Use organic compost for balanced nutrition</p>
-                    `;
-                    break;
-                case 'fruits':
-                    suggestions = `
-                        <p>• Nitrogen: 60-100 mg/kg</p>
-                        <p>• Phosphorus: 30-50 mg/kg</p>
-                        <p>• Potassium: 120-180 mg/kg</p>
-                        <p>• Focus on micronutrient balance</p>
-                    `;
-                    break;
-                default:
-                    suggestions = '<p>Select a specific crop for detailed recommendations.</p>';
-            }
+function getRiceRecommendations(nStatus, pStatus, kStatus, nReq, pReq, kReq) {
+    let recommendations = '';
+    
+    if (nStatus.score < 2) {
+        recommendations += `<li>Apply nitrogen in three splits: 40% as basal, 30% at tillering, and 30% at panicle initiation to increase yield by 20-25%.</li>`;
+    }
+    
+    if (pStatus.score < 2) {
+        recommendations += `<li>Apply phosphorus before transplanting to stimulate root growth and increase panicle number.</li>`;
+    }
+    
+    if (kStatus.score < 2) {
+        recommendations += `<li>Adequate potassium strengthens stalks, enhances disease resistance, and improves grain quality.</li>`;
+    }
+    
+    recommendations += `<li>Maintain 2-5 cm water level during critical growth stages to ensure nutrient availability.</li>`;
+    recommendations += `<li>Zinc application can increase yield by 10-15% in deficient soils.</li>`;
+    recommendations += `<li>Proper spacing (20×15 cm) can optimize tillering and panicle development.</li>`;
+    
+    return recommendations;
+}
 
-            suggestionsDiv.innerHTML = suggestions;
-                        // Show results section
-                        resultsDiv.classList.remove('hidden');
-        }
-    </script>
-  
+function getVegetableRecommendations(nStatus, pStatus, kStatus, nReq, pReq, kReq) {
+    let recommendations = '';
+    
+    if (nStatus.score < 2) {
+        recommendations += `<li>Apply nitrogen in weekly intervals through fertigation to ensure steady growth and higher yields.</li>`;
+    }
+    
+    if (pStatus.score < 2) {
+        recommendations += `<li>Apply phosphorus at planting and flowering stages to improve root development and fruit setting.</li>`;
+    }
+    
+    if (kStatus.score < 2) {
+        recommendations += `<li>Adequate potassium improves vegetable quality, flavor, and shelf life, increasing marketable yield by 15-20%.</li>`;
+    }
+    
+    recommendations += `<li>Implement drip irrigation with fertigation to increase fertilizer efficiency by 30-40%.</li>`;
+    recommendations += `<li>Apply calcium and boron to prevent blossom end rot and improve fruit quality.</li>`;
+    recommendations += `<li>Use mulching to conserve moisture, suppress weeds, and maintain soil temperature.</li>`;
+    
+    return recommendations;
+}
 
+function getFruitRecommendations(nStatus, pStatus, kStatus, nReq, pReq, kReq) {
+    let recommendations = '';
+    
+    if (nStatus.score < 2) {
+        recommendations += `<li>Apply nitrogen before flowering and after fruit set to balance vegetative growth and fruit production.</li>`;
+    }
+    
+    if (pStatus.score < 2) {
+        recommendations += `<li>Apply phosphorus during early growth stages to promote flowering and fruit development.</li>`;
+    }
+    
+    if (kStatus.score < 2) {
+        recommendations += `<li>Adequate potassium improves fruit quality, color, and taste, enhancing market value by 20-25%.</li>`;
+    }
+    
+    recommendations += `<li>Implement drip irrigation with fertigation to increase water and nutrient use efficiency.</li>`;
+    recommendations += `<li>Apply calcium to prevent bitter pit in apples and blossom end rot in other fruits.</li>`;
+    recommendations += `<li>Consider foliar sprays for micronutrients during critical growth stages.</li>`;
+    
+    return recommendations;
+}
 
+function getGeneralRecommendations(nStatus, pStatus, kStatus, nReq, pReq, kReq) {
+    let recommendations = '';
+    
+    if (nStatus.score < 2) {
+        recommendations += `<li>Apply nitrogen in split applications to match crop demand and reduce losses.</li>`;
+    }
+    
+    if (pStatus.score < 2) {
+        recommendations += `<li>Apply phosphorus before planting to ensure availability throughout the growing season.</li>`;
+    }
+    
+    if (kStatus.score < 2) {
+        recommendations += `<li>Adequate potassium improves overall plant health and resistance to stress factors.</li>`;
+    }
+    
+    recommendations += `<li>Consider soil testing every 2-3 years to monitor nutrient levels.</li>`;
+    recommendations += `<li>Incorporate organic matter to improve soil structure and nutrient availability.</li>`;
+    recommendations += `<li>Practice crop rotation to break pest cycles and maintain soil health.</li>`;
+    
+    return recommendations;
+}
+</script>
 </body>
 </html>
