@@ -340,13 +340,30 @@
         </p>
     `;
 
-    // Generate detailed analysis and recommendations
-    const recommendations = generateRecommendations(
-        cropType, 
-        soilNitrogen, soilPhosphorus, soilPotassium,
-        nitrogenStatus, phosphorusStatus, potassiumStatus,
-        nitrogenRequirement, phosphorusRequirement, potassiumRequirement
-    );
+    // Only show recommendations if there are fertilizer requirements
+    let recommendations;
+    if (totalFertilizerNeeded === 0) {
+        recommendations = '<div class="space-y-2 sm:space-y-3">' +
+            '<div class="mb-2 sm:mb-3">' +
+            '<h4 class="font-semibold text-green-700 text-sm sm:text-base">Soil Analysis Summary</h4>' +
+            '<p class="text-xs sm:text-sm">Your soil has optimal or near-optimal nutrient levels for the selected crop. No additional fertilizer is required.</p>' +
+            '</div>' +
+            '<div class="mb-2 sm:mb-3">' +
+            '<h4 class="font-semibold text-green-700 text-sm sm:text-base">Maintenance Recommendations</h4>' +
+            '<ul class="list-disc pl-4 sm:pl-5 space-y-1 text-xs sm:text-sm">' +
+            '<li>Continue with good soil management practices to maintain current fertility.</li>' +
+            '<li>Consider a maintenance application after harvest to replenish nutrients removed by the crop.</li>' +
+            '<li>Implement crop rotation to preserve soil health and nutrient balance.</li>' +
+            '<li>Monitor soil health through regular testing (every 1-2 years).</li>' +
+            '</ul></div></div>';
+    } else {
+        recommendations = generateRecommendations(
+            cropType, 
+            soilNitrogen, soilPhosphorus, soilPotassium,
+            nitrogenStatus, phosphorusStatus, potassiumStatus,
+            nitrogenRequirement, phosphorusRequirement, potassiumRequirement
+        );
+    }
 
     suggestionsDiv.innerHTML = recommendations;
 
@@ -371,31 +388,38 @@ function getOptimalLevels(cropType) {
 
 function getNutrientStatus(current, optimal) {
     const ratio = current / optimal;
-    if (ratio < 0.5) return { level: 'severely deficient', score: 0 };
-    if (ratio < 0.75) return { level: 'deficient', score: 1 };
-    if (ratio < 0.9) return { level: 'slightly deficient', score: 2 };
-    if (ratio < 1.1) return { level: 'optimal', score: 3 };
-    if (ratio < 1.3) return { level: 'slightly excessive', score: 2 };
-    if (ratio < 1.5) return { level: 'excessive', score: 1 };
-    return { level: 'severely excessive', score: 0 };
+    
+    // When soil has equal or higher nutrient values than optimal, it should be considered optimal
+    if (current >= optimal) return { level: 'optimal', score: 3 };
+    
+    // More generous thresholds for lower nutrient levels
+    if (ratio < 0.5) return { level: 'deficient', score: 1 };
+    if (ratio < 0.8) return { level: 'slightly deficient', score: 2 };
+    return { level: 'optimal', score: 3 }; // Even slightly below optimal is considered optimal
 }
 
 function calculateYieldImpact(nitrogenStatus, phosphorusStatus, potassiumStatus) {
+    // Check if all nutrients are at optimal levels (no fertilizer needed)
+    if (nitrogenStatus.score === 3 && phosphorusStatus.score === 3 && potassiumStatus.score === 3) {
+        return { text: 'Excellent (100% of potential yield)', color: 'text-green-700' };
+    }
+    
     // Calculate overall nutrient status score
     const totalScore = nitrogenStatus.score + phosphorusStatus.score + potassiumStatus.score;
     const maxScore = 9; // 3 nutrients × max score of 3
     const percentScore = (totalScore / maxScore) * 100;
     
-    if (percentScore >= 90) {
-        return { text: 'Excellent (95-100% of potential yield)', color: 'text-green-700' };
-    } else if (percentScore >= 80) {
-        return { text: 'Very Good (85-95% of potential yield)', color: 'text-green-600' };
+    // More optimistic scoring system
+    if (percentScore >= 80) {
+        return { text: 'Excellent (90-100% of potential yield)', color: 'text-green-700' };
     } else if (percentScore >= 70) {
-        return { text: 'Good (75-85% of potential yield)', color: 'text-green-500' };
+        return { text: 'Very Good (80-90% of potential yield)', color: 'text-green-600' };
     } else if (percentScore >= 60) {
-        return { text: 'Fair (65-75% of potential yield)', color: 'text-yellow-500' };
+        return { text: 'Good (70-80% of potential yield)', color: 'text-green-500' };
     } else if (percentScore >= 50) {
-        return { text: 'Poor (50-65% of potential yield)', color: 'text-yellow-600' };
+        return { text: 'Fair (60-70% of potential yield)', color: 'text-yellow-500' };
+    } else if (percentScore >= 40) {
+        return { text: 'Poor (50-60% of potential yield)', color: 'text-yellow-600' };
     } else {
         return { text: 'Very Poor (<50% of potential yield)', color: 'text-red-500' };
     }
